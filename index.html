@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dr. Shubham Kumar Singh</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Mono:wght@300;400;500&family=Rajdhani:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1f2e;
+      --paper: #f4f6fb;
+      --gold: #b8860b;
+      --gold-light: #a0720a;
+      --gold-dim: #b8860b22;
+      --cyan: #0e6ea6;
+      --cyan-dim: #0e6ea611;
+      --navy: #eef2fa;
+      --navy-mid: #e2e8f5;
+      --navy-light: #c8d4e8;
+      --muted: #5a6580;
+      --rule: #c8d4e8;
+      --surface: #e8edf8;
+      --accent: #0e6ea6;
+      --accent-light: #0e6ea611;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(244,246,251,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 5rem;
+      scroll-margin-top: 70px;
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: linear-gradient(var(--navy-light) 1px, transparent 1px), linear-gradient(90deg, var(--navy-light) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 4rem;
+      border-right: 1px solid var(--rule);
+      position: relative; z-index: 1;
+    }
+    .hero-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--cyan);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero-name {
+      font-size: clamp(2.8rem, 5vw, 4.8rem);
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+      font-family: 'EB Garamond', Georgia, serif;
+    }
+    .hero-name .firstname { color: var(--gold); display: block; }
+    .hero-name .lastname { color: var(--gold-light); display: block; font-style: italic; }
+    .hero-gold-rule {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin-bottom: 1.5rem;
+    }
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+      line-height: 1.9;
+    }
+    .hero-links { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+    .btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.6rem;
+      border: 1px solid var(--cyan);
+      text-decoration: none;
+      color: var(--cyan);
+      transition: all 0.2s;
+      background: transparent;
+    }
+    .btn:hover { background: var(--cyan); color: var(--navy); }
+    .btn.primary { background: var(--gold); color: var(--navy); border-color: var(--gold); font-weight: 600; }
+    .btn.primary:hover { background: var(--gold-light); border-color: var(--gold-light); }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 6rem 4rem;
+      position: relative; z-index: 1;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    .stat-item { border-top: 1px solid var(--gold-dim); padding-top: 1rem; }
+    .stat-num {
+      font-size: 2.8rem;
+      font-weight: 500;
+      line-height: 1;
+      color: var(--gold);
+      font-family: 'EB Garamond', Georgia, serif;
+    }
+    .stat-num.small {
+      font-size: 1.4rem;
+      letter-spacing: 0.02em;
+    }
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+    .hero-ids {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      line-height: 2.2;
+      border-top: 1px solid var(--rule);
+      padding-top: 1.5rem;
+    }
+    .hero-ids span { color: var(--cyan); }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 4rem; scroll-margin-top: 70px; }
+    section:nth-child(even) { background: var(--surface); }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 3rem;
+      max-width: 700px;
+      color: var(--gold-light);
+    }
+
+    /* ── ABOUT ── */
+    .about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 5rem; }
+    .about-body p { color: var(--muted); margin-bottom: 1.2rem; font-size: 1.05rem; }
+    .about-body p:first-child::first-letter {
+      font-size: 3.5rem;
+      float: left;
+      line-height: 0.8;
+      padding-right: 0.15em;
+      color: var(--gold);
+    }
+    .sidebar-block { margin-bottom: 2.5rem; }
+    .sidebar-block h4 {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.8rem;
+    }
+    .sidebar-block p { font-size: 0.95rem; color: var(--ink); }
+
+    /* ── RESEARCH INTERESTS ── */
+    .interests-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+    .interest-card {
+      border: 1px solid var(--rule);
+      padding: 1.8rem;
+      background: #fff;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .interest-card:hover { border-color: var(--cyan); background: var(--cyan-dim); }
+    .interest-icon { font-size: 1.5rem; margin-bottom: 0.8rem; }
+    .interest-card h3 { font-size: 1.05rem; font-weight: 500; margin-bottom: 0.4rem; color: var(--cyan); }
+    .interest-card p { font-size: 0.9rem; color: var(--muted); }
+
+    /* ── PUBLICATIONS ── */
+    .pub-list { display: flex; flex-direction: column; }
+    .pub-item {
+      display: grid;
+      grid-template-columns: 3rem 1fr auto;
+      gap: 1.5rem;
+      align-items: start;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--rule);
+      transition: background 0.15s;
+    }
+    .pub-item:hover { background: var(--cyan-dim); padding-left: 1rem; padding-right: 1rem; margin: 0 -1rem; }
+    .pub-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--gold);
+      padding-top: 0.3rem;
+    }
+    .pub-content h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.4rem; line-height: 1.4; color: var(--ink); }
+    .pub-link { color: var(--ink); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s, color 0.2s; }
+    .pub-link:hover { color: var(--cyan); border-bottom-color: var(--cyan); }
+    .pub-content p { font-size: 0.88rem; color: var(--muted); }
+    .pub-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.6rem;
+      white-space: nowrap;
+      align-self: start;
+      margin-top: 0.3rem;
+      border: 1px solid;
+    }
+    .pub-badge.q1 { color: var(--cyan); border-color: var(--cyan); background: var(--cyan-dim); }
+    .pub-badge.q2 { color: var(--gold); border-color: var(--gold-dim); background: var(--gold-dim); }
+    .pub-badge.book { color: var(--muted); border-color: var(--muted); }
+
+    /* ── SKILLS ── */
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+    .skill-group h3 {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .skill-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--rule);
+      font-size: 0.95rem;
+      color: var(--ink);
+    }
+    .skill-item:last-child { border-bottom: none; }
+    .skill-dots { display: flex; gap: 4px; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--navy-light); }
+    .dot.filled { background: var(--gold); }
+
+    /* ── EXPERIENCE ── */
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 1px; background: var(--rule);
+    }
+    .tl-item { padding-left: 2.5rem; padding-bottom: 3rem; position: relative; }
+    .tl-item::before {
+      content: '';
+      position: absolute; left: -4px; top: 0.5rem;
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--gold); border: 2px solid var(--paper);
+    }
+    .tl-date {
+      font-family: 'DM Mono', monospace; font-size: 0.68rem;
+      letter-spacing: 0.1em; color: var(--cyan); text-transform: uppercase; margin-bottom: 0.4rem;
+    }
+    .tl-role { font-size: 1.15rem; font-weight: 500; margin-bottom: 0.3rem; color: var(--gold-light); }
+    .tl-org { font-size: 0.95rem; color: var(--cyan); margin-bottom: 0.8rem; }
+    .tl-body { font-size: 0.93rem; color: var(--muted); }
+
+    .hero-figure { padding-top: 1rem; margin-bottom: 1rem; }
+
+    /* ── AWARDS ── */
+    .awards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .award-card { border: 1px solid var(--rule); padding: 2rem 1.8rem; background: #fff; }
+    .award-year {
+      font-family: 'DM Mono', monospace; font-size: 0.68rem;
+      letter-spacing: 0.1em; color: var(--cyan); text-transform: uppercase; margin-bottom: 0.6rem;
+    }
+    .award-name { font-size: 1rem; font-weight: 500; margin-bottom: 0.3rem; color: var(--gold-light); }
+    .award-org { font-size: 0.88rem; color: var(--muted); }
+
+    /* ── EDUCATION ── */
+    .edu-grid { display: flex; flex-direction: column; }
+    .edu-item {
+      display: grid; grid-template-columns: 1fr 2fr 1fr;
+      gap: 2rem; align-items: start; padding: 2rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .edu-period {
+      font-family: 'DM Mono', monospace; font-size: 0.7rem;
+      color: var(--cyan); letter-spacing: 0.08em; padding-top: 0.2rem;
+    }
+    .edu-degree { font-size: 1.05rem; font-weight: 500; margin-bottom: 0.3rem; color: var(--gold-light); }
+    .edu-inst { font-size: 0.9rem; color: var(--muted); }
+    .edu-detail { font-size: 0.85rem; color: var(--gold); text-align: right; }
+
+    /* ── CONTACT ── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+    .contact-intro { font-size: 1.05rem; color: var(--muted); line-height: 1.9; }
+    .contact-item {
+      display: flex; gap: 1.5rem; align-items: start;
+      padding: 1.2rem 0; border-bottom: 1px solid var(--rule);
+    }
+    .contact-item:first-child { border-top: 1px solid var(--rule); }
+    .contact-item-label {
+      font-family: 'DM Mono', monospace; font-size: 0.68rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--cyan); min-width: 80px; padding-top: 0.15rem;
+    }
+    .contact-item-val { font-size: 0.95rem; color: var(--ink); }
+    .contact-item-val a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--rule); transition: border-color 0.2s, color 0.2s; }
+    .contact-item-val a:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2.5rem 4rem;
+      border-top: 1px solid var(--rule);
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: 'DM Mono', monospace; font-size: 0.68rem;
+      color: var(--muted); letter-spacing: 0.08em;
+      background: var(--navy-mid);
+    }
+    footer span:first-child { color: var(--gold); }
+
+    /* ── FADE IN ── */
+    .fade-in { opacity: 1; transform: translateY(0); transition: opacity 0.6s ease, transform 0.6s ease; }
+    body.js-loaded .fade-in { opacity: 0; transform: translateY(20px); }
+    body.js-loaded .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-left, .hero-right { padding: 3rem 1.5rem; }
+      .hero-right { border-top: 1px solid var(--rule); }
+      section { padding: 4rem 1.5rem; }
+      .about-grid, .skills-grid, .awards-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .edu-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .edu-detail { text-align: left; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Dr. Singh, S.K.</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-tag">Postdoctoral Researcher · Yonsei University, Seoul</div>
+      <h1 class="hero-name">
+        <span class="firstname">Shubham Kumar</span>
+        <span class="lastname">Singh</span>
+      </h1>
+      <div class="hero-gold-rule"></div>
+      <p class="hero-desc">Operations Research & Sustainable Supply Chain Management — developing advanced optimization models for smart, green, and resilient systems.</p>
+      <div class="hero-links">
+        <a href="#publications" class="btn primary">View Publications</a>
+        <a href="#contact" class="btn">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-right">
+
+      <!-- ANIMATED FIGURE -->
+      <div class="hero-figure">
+        <svg viewBox="0 0 340 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:420px;display:block;margin:0 auto 2rem;">
+          <defs>
+            <radialGradient id="glow-blue" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#0e6ea6" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#0e6ea6" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="glow-green" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#2a9d5c" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#2a9d5c" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="glow-gold" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#b8860b" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#b8860b" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="blur-sm">
+              <feGaussianBlur stdDeviation="2"/>
+            </filter>
+            <marker id="a1" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+              <polygon points="0,0 7,3.5 0,7" fill="#0e6ea6" opacity="0.7"/>
+            </marker>
+            <marker id="a2" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+              <polygon points="0,0 7,3.5 0,7" fill="#2a9d5c" opacity="0.7"/>
+            </marker>
+            <marker id="a3" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+              <polygon points="0,0 7,3.5 0,7" fill="#b8860b" opacity="0.7"/>
+            </marker>
+          </defs>
+
+          <!-- BACKGROUND GLOW HALOS -->
+          <circle cx="170" cy="95" r="60" fill="url(#glow-blue)" filter="url(#blur-sm)"/>
+          <circle cx="75" cy="225" r="52" fill="url(#glow-green)" filter="url(#blur-sm)"/>
+          <circle cx="265" cy="225" r="52" fill="url(#glow-gold)" filter="url(#blur-sm)"/>
+
+          <!-- HEXAGON GRID BACKGROUND (decorative) -->
+          <g opacity="0.07" stroke="#0e6ea6" stroke-width="0.8" fill="none">
+            <polygon points="170,10 195,24 195,52 170,66 145,52 145,24"/>
+            <polygon points="210,34 235,48 235,76 210,90 185,76 185,48"/>
+            <polygon points="130,34 155,48 155,76 130,90 105,76 105,48"/>
+            <polygon points="250,58 275,72 275,100 250,114 225,100 225,72"/>
+            <polygon points="90,58 115,72 115,100 90,114 65,100 65,72"/>
+          </g>
+
+          <!-- ORBIT RING around Industry 4.0 -->
+          <ellipse cx="170" cy="95" rx="52" ry="14" fill="none" stroke="#0e6ea6" stroke-width="0.8" stroke-dasharray="3,4" opacity="0.35">
+            <animateTransform attributeName="transform" type="rotate" from="0 170 95" to="360 170 95" dur="8s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="170" cy="95" rx="52" ry="14" fill="none" stroke="#0e6ea6" stroke-width="0.8" stroke-dasharray="3,4" opacity="0.2" transform="rotate(60 170 95)">
+            <animateTransform attributeName="transform" type="rotate" from="60 170 95" to="420 170 95" dur="12s" repeatCount="indefinite"/>
+          </ellipse>
+
+          <!-- CONNECTING LINES with glow shadow -->
+          <!-- Industry 4.0 → Sustainability -->
+          <line x1="143" y1="127" x2="98" y2="196" stroke="#2a9d5c" stroke-width="3" stroke-linecap="round" opacity="0.1" filter="url(#blur-sm)"/>
+          <line x1="143" y1="127" x2="98" y2="196" stroke="#2a9d5c" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6" marker-end="url(#a2)">
+            <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="1.8s" repeatCount="indefinite"/>
+          </line>
+
+          <!-- Industry 4.0 → Optimization -->
+          <line x1="197" y1="127" x2="242" y2="196" stroke="#b8860b" stroke-width="3" stroke-linecap="round" opacity="0.1" filter="url(#blur-sm)"/>
+          <line x1="197" y1="127" x2="242" y2="196" stroke="#b8860b" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6" marker-end="url(#a3)">
+            <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="2.1s" repeatCount="indefinite"/>
+          </line>
+
+          <!-- Sustainability → Optimization -->
+          <line x1="107" y1="225" x2="233" y2="225" stroke="#0e6ea6" stroke-width="3" stroke-linecap="round" opacity="0.1" filter="url(#blur-sm)"/>
+          <line x1="107" y1="225" x2="233" y2="225" stroke="#0e6ea6" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6" marker-end="url(#a1)">
+            <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="2.5s" repeatCount="indefinite"/>
+          </line>
+
+          <!-- PULSE RINGS -->
+          <circle cx="170" cy="95" r="42" fill="none" stroke="#0e6ea6" stroke-width="1.5" opacity="0">
+            <animate attributeName="r" from="42" to="70" dur="2.6s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" from="0.5" to="0" dur="2.6s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="170" cy="95" r="42" fill="none" stroke="#0e6ea6" stroke-width="1.5" opacity="0">
+            <animate attributeName="r" from="42" to="70" dur="2.6s" begin="1.3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" from="0.5" to="0" dur="2.6s" begin="1.3s" repeatCount="indefinite"/>
+          </circle>
+
+          <circle cx="75" cy="225" r="36" fill="none" stroke="#2a9d5c" stroke-width="1.2" opacity="0">
+            <animate attributeName="r" from="36" to="58" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" from="0.45" to="0" dur="3s" repeatCount="indefinite"/>
+          </circle>
+
+          <circle cx="265" cy="225" r="36" fill="none" stroke="#b8860b" stroke-width="1.2" opacity="0">
+            <animate attributeName="r" from="36" to="58" dur="2.8s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" from="0.45" to="0" dur="2.8s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- NODE 1 — INDUSTRY 4.0 (top center) -->
+          <!-- Outer decorative ring -->
+          <circle cx="170" cy="95" r="44" fill="none" stroke="#0e6ea6" stroke-width="0.8" stroke-dasharray="2,6" opacity="0.4">
+            <animateTransform attributeName="transform" type="rotate" from="0 170 95" to="360 170 95" dur="20s" repeatCount="indefinite"/>
+          </animateTransform>
+          </circle>
+          <circle cx="170" cy="95" r="42" fill="#ddeaf5" stroke="#0e6ea6" stroke-width="2.5"/>
+          <circle cx="170" cy="95" r="34" fill="#eef4fb" stroke="#0e6ea6" stroke-width="1" opacity="0.5"/>
+          <!-- Gear icon drawn with text -->
+          <text x="170" y="87" text-anchor="middle" font-size="26" fill="#0e6ea6">⚙</text>
+          <text x="170" y="105" text-anchor="middle" font-size="8" fill="#0e6ea6" font-family="monospace" font-weight="bold" letter-spacing="1">INDUSTRY 4.0</text>
+
+          <!-- NODE 2 — SUSTAINABILITY (bottom-left) -->
+          <circle cx="75" cy="225" r="38" fill="none" stroke="#2a9d5c" stroke-width="0.8" stroke-dasharray="2,6" opacity="0.4">
+            <animateTransform attributeName="transform" type="rotate" from="0 75 225" to="-360 75 225" dur="18s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="75" cy="225" r="36" fill="#d5ede0" stroke="#2a9d5c" stroke-width="2.5">
+            <animate attributeName="r" values="36;37.5;36" dur="4s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="75" cy="225" r="28" fill="#e8f5ee" stroke="#2a9d5c" stroke-width="1" opacity="0.5"/>
+          <text x="75" y="218" text-anchor="middle" font-size="22" fill="#2a9d5c">🌍</text>
+          <text x="75" y="237" text-anchor="middle" font-size="7" fill="#2a9d5c" font-family="monospace" font-weight="bold" letter-spacing="0.5">SUSTAINABILITY</text>
+
+          <!-- NODE 3 — OPTIMIZATION (bottom-right) -->
+          <circle cx="265" cy="225" r="38" fill="none" stroke="#b8860b" stroke-width="0.8" stroke-dasharray="2,6" opacity="0.4">
+            <animateTransform attributeName="transform" type="rotate" from="0 265 225" to="360 265 225" dur="22s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="265" cy="225" r="36" fill="#f5e8c8" stroke="#b8860b" stroke-width="2.5">
+            <animate attributeName="r" values="36;37.5;36" dur="3.5s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="265" cy="225" r="28" fill="#fdf4e0" stroke="#b8860b" stroke-width="1" opacity="0.5"/>
+          <text x="265" y="218" text-anchor="middle" font-size="22" fill="#b8860b">📐</text>
+          <text x="265" y="237" text-anchor="middle" font-size="7" fill="#b8860b" font-family="monospace" font-weight="bold" letter-spacing="0.5">OPTIMIZATION</text>
+
+          <!-- MOVING PARTICLES -->
+          <circle r="4" fill="#2a9d5c">
+            <animateMotion dur="1.8s" repeatCount="indefinite" path="M170,95 Q120,150 75,225"/>
+            <animate attributeName="opacity" values="0;1;1;0" dur="1.8s" repeatCount="indefinite"/>
+            <animate attributeName="r" values="2;4;2" dur="1.8s" repeatCount="indefinite"/>
+          </circle>
+          <circle r="4" fill="#b8860b">
+            <animateMotion dur="2.1s" repeatCount="indefinite" path="M170,95 Q220,150 265,225"/>
+            <animate attributeName="opacity" values="0;1;1;0" dur="2.1s" repeatCount="indefinite"/>
+            <animate attributeName="r" values="2;4;2" dur="2.1s" repeatCount="indefinite"/>
+          </circle>
+          <circle r="4" fill="#0e6ea6">
+            <animateMotion dur="2.5s" repeatCount="indefinite" path="M75,225 Q170,225 265,225"/>
+            <animate attributeName="opacity" values="0;1;1;0" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeName="r" values="2;4;2" dur="2.5s" repeatCount="indefinite"/>
+          </circle>
+          <!-- reverse particles -->
+          <circle r="3" fill="#0e6ea6" opacity="0.6">
+            <animateMotion dur="2.2s" begin="1.1s" repeatCount="indefinite" path="M75,225 Q120,150 170,95"/>
+            <animate attributeName="opacity" values="0;0.7;0" dur="2.2s" begin="1.1s" repeatCount="indefinite"/>
+          </circle>
+          <circle r="3" fill="#b8860b" opacity="0.6">
+            <animateMotion dur="2.6s" begin="1.3s" repeatCount="indefinite" path="M265,225 Q220,150 170,95"/>
+            <animate attributeName="opacity" values="0;0.7;0" dur="2.6s" begin="1.3s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- LABEL TAGS below nodes -->
+          <rect x="108" y="270" width="124" height="18" rx="4" fill="#eef2fa" stroke="#0e6ea6" stroke-width="0.8" opacity="0.6"/>
+          <text x="170" y="283" text-anchor="middle" font-size="7.5" fill="#0e6ea6" font-family="monospace" opacity="0.8">Smart · Green · Optimal</text>
+        </svg>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Peer-reviewed publications</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">#50</div>
+          <div class="stat-label">Yonsei — QS World Ranking</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num small">DST-INSPIRE</div>
+          <div class="stat-label">Fellowship/Scholarship by Govt. of India</div>
+        </div>
+      </div>
+      <div class="hero-ids">
+        <div>ORCID &nbsp;<span><a href="https://orcid.org/0000-0003-3089-4992" target="_blank" style="color:inherit;border-bottom:1px solid var(--rule);text-decoration:none;">0000-0003-3089-4992</a></span></div>
+        <div>Scopus &nbsp;<span><a href="https://www.scopus.com/authid/detail.uri?authorId=57208179791" target="_blank" style="color:inherit;border-bottom:1px solid var(--rule);text-decoration:none;">57208179791</a></span></div>
+        <div>WoS &nbsp;&nbsp;&nbsp;&nbsp;<span><a href="https://www.webofscience.com/wos/author/record/MZR-6026-2025" target="_blank" style="color:inherit;border-bottom:1px solid var(--rule);text-decoration:none;">MZR-6026-2025</a></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">01 — About</div>
+    <div class="about-grid fade-in">
+      <div class="about-body">
+        <p>I am a Postdoctoral Researcher at Yonsei University (QS #50) under the Brain Korea Project (BK21), Seoul, South Korea, working in the Department of Industrial Engineering under Prof. Biswajit Sarkar. My research sits at the intersection of Operations Research and Sustainability — designing mathematical models and multi-objective optimization frameworks for smart supply chains, green energy systems, and smart factories.</p>
+        <p>I completed my Ph.D. in Mathematics (Operations Research) at Graphic Era Deemed University, India, funded by the prestigious DST-INSPIRE Fellowship of the Government of India. My doctoral research focused on sustainable biofuel supply chain management through advanced mathematical modelling.</p>
+        <p>With over 14 peer-reviewed publications in leading SCIE/Q1 journals published by Elsevier, Wiley, and SpringerNature, I aim to contribute data-driven, analytically rigorous solutions to real-world sustainability challenges — from energy supply chains to waste management and smart manufacturing.</p>
+      </div>
+      <div class="about-sidebar">
+        <div class="sidebar-block">
+          <h4>Current Position</h4>
+          <p>Postdoctoral Researcher<br/>Yonsei University, Seoul</p>
+        </div>
+        <div class="sidebar-block">
+          <h4>Education</h4>
+          <p>Ph.D. Mathematics<br/>Graphic Era Deemed to be University</p>
+        </div>
+        <div class="sidebar-block">
+          <h4>Languages</h4>
+          <p>English — Proficient<br/>Hindi — Native</p>
+        </div>
+        <div class="sidebar-block">
+          <h4>Membership</h4>
+          <p>Life Member,<br/>Indian Mathematical Society</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH INTERESTS -->
+  <section id="research">
+    <div class="section-label">02 — Research Interests</div>
+    <h2 class="section-title fade-in">Bridging mathematics<br/>and sustainability</h2>
+    <div class="interests-grid fade-in">
+      <div class="interest-card">
+        <div class="interest-icon">🔗</div>
+        <h3>Supply Chain Management</h3>
+        <p>Designing resilient, sustainable, and smart supply chain networks under uncertainty.</p>
+      </div>
+      <div class="interest-card">
+        <div class="interest-icon">📐</div>
+        <h3>Operations Research</h3>
+        <p>Advanced mathematical programming, multi-objective optimization, and decision modelling.</p>
+      </div>
+      <div class="interest-card">
+        <div class="interest-icon">🌿</div>
+        <h3>Sustainable Systems</h3>
+        <p>Green hydrogen, biofuel, and circular economy supply chain frameworks.</p>
+      </div>
+      <div class="interest-card">
+        <div class="interest-icon">🏭</div>
+        <h3>Smart Manufacturing</h3>
+        <p>Industry 4.0-enabled production systems with smart inspection and reliability integration.</p>
+      </div>
+      <div class="interest-card">
+        <div class="interest-icon">🚛</div>
+        <h3>Logistics & Transportation</h3>
+        <p>Reverse logistics, e-waste management, and multi-echelon distribution networks.</p>
+      </div>
+      <div class="interest-card">
+        <div class="interest-icon">📊</div>
+        <h3>Sustainable Development</h3>
+        <p>Triple Bottom Line approaches integrating economic, environmental, and social objectives.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <div class="section-label">03 — Key Publications</div>
+    <h2 class="section-title fade-in">Selected research output</h2>
+    <div class="pub-list fade-in">
+
+      <div class="pub-item">
+        <div class="pub-num">01</div>
+        <div class="pub-content">
+          <h3><a href="https://doi.org/10.1002/bse.70710" target="_blank" class="pub-link">Designing a Sustainable Green Hydrogen Supply Chain Network: Multiobjective Optimization with AI-Assisted Smart Inspection and Public Engagement Strategies</a></h3>
+          <p>Business Strategy and the Environment (Wiley), 2026, pp. 1–28 · I.F. 13.3</p>
+        </div>
+        <div class="pub-badge q1">SCIE Q1</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num">02</div>
+        <div class="pub-content">
+          <h3><a href="https://doi.org/10.1016/j.jii.2025.100884" target="_blank" class="pub-link">An Advanced Robust Possibilistic Chance-Constrained Programming Model for the Animal Fat-Based Biodiesel Supply Chain Network</a></h3>
+          <p>Journal of Industrial Information Integration (Elsevier), 2025, Vol. 47, 100884 · I.F. 11.2</p>
+        </div>
+        <div class="pub-badge q1">SCIE Q1</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num">03</div>
+        <div class="pub-content">
+          <h3><a href="https://doi.org/10.1016/j.jclepro.2024.142047" target="_blank" class="pub-link">Resilience of Sustainability for a Smart Production System to Produce Biodiesel from Waste Animal Fat</a></h3>
+          <p>Journal of Cleaner Production (Elsevier), 2024, Vol. 452, 142047 · I.F. 10.7</p>
+        </div>
+        <div class="pub-badge q1">SCIE Q1</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num">04</div>
+        <div class="pub-content">
+          <h3><a href="https://doi.org/10.1016/j.spc.2023.10.012" target="_blank" class="pub-link">Strategy Planning for Sustainable Biodiesel Supply Chain Produced from Waste Animal Fat</a></h3>
+          <p>Sustainable Production and Consumption (Elsevier), 2024, Vol. 44, 263–281 · I.F. 9.2</p>
+        </div>
+        <div class="pub-badge q1">SCIE Q1</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num">05</div>
+        <div class="pub-content">
+          <h3><a href="https://doi.org/10.1016/j.apenergy.2025.126454" target="_blank" class="pub-link">Sustainable Food Waste-to-Bioenergy Supply Chain with Rate of Return under Triple Bottom Line Approach</a></h3>
+          <p>Applied Energy (Elsevier), 2025, Vol. 399, 126454 · I.F. 12.2</p>
+        </div>
+        <div class="pub-badge q1">SCIE Q1</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num">06</div>
+        <div class="pub-content">
+          <h3><a href="https://doi.org/10.1016/j.jclepro.2022.134806" target="_blank" class="pub-link">Sustainable Biodiesel Supply Chain Model Based on Waste Animal Fat with Subsidy and Advertisement</a></h3>
+          <p>Journal of Cleaner Production (Elsevier), 2023, Vol. 382, 134806 · I.F. 10.7</p>
+        </div>
+        <div class="pub-badge q1">SCIE Q1</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num">07</div>
+        <div class="pub-content">
+          <h3><a href="https://doi.org/10.3390/math11010124" target="_blank" class="pub-link">Supply Chain Management of E-Waste for End-of-Life Electronic Products with Reverse Logistics</a></h3>
+          <p>Mathematics (MDPI), 2023, Vol. 11, 124 · I.F. 2.3</p>
+        </div>
+        <div class="pub-badge q1">SCIE Q1</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num">08</div>
+        <div class="pub-content">
+          <h3><a href="https://doi.org/10.1016/j.rineng.2025.105917" target="_blank" class="pub-link">A Sustainable Production Model for Solid-State Batteries with Advertisement-based Demand and System Reliability Insights</a></h3>
+          <p>Results in Engineering (Elsevier), 2025, Vol. 27, 105917 · I.F. 9.4</p>
+        </div>
+        <div class="pub-badge q2">ESCI Q1</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num">09</div>
+        <div class="pub-content">
+          <h3><a href="https://doi.org/10.1016/j.clet.2025.101059" target="_blank" class="pub-link">A Sustainable Smart Lemongrass Oil Production System with Energy-Saving Strategies and Variable Production Rate</a></h3>
+          <p>Cleaner Engineering and Technology (Elsevier), 2025, Vol. 28, 101059 · I.F. 7.3</p>
+        </div>
+        <div class="pub-badge q2">ESCI Q2</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num">10</div>
+        <div class="pub-content">
+          <h3><a href="https://doi.org/10.1016/j.sftr.2025.100490" target="_blank" class="pub-link">Sustainability of Electronic Product Manufacturing through E-Waste Management and Reverse Logistics</a></h3>
+          <p>Sustainable Futures (Elsevier), 2025, Vol. 9, 100490 · I.F. 6.7</p>
+        </div>
+        <div class="pub-badge q2">ESCI Q1</div>
+      </div>
+
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">04 — Technical Skills</div>
+    <div class="skills-grid fade-in">
+      <div class="skill-group">
+        <h3>Software & Tools</h3>
+        <div class="skill-item">LINGO <div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div></div>
+        <div class="skill-item">MATLAB <div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+        <div class="skill-item">Mathematica <div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+        <div class="skill-item">LaTeX <div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div></div>
+      </div>
+      <div class="skill-group">
+        <h3>Research Methods</h3>
+        <div class="skill-item">Multi-objective Optimization</div>
+        <div class="skill-item">Mathematical Modelling</div>
+        <div class="skill-item">Possibilistic Programming</div>
+        <div class="skill-item">Supply Chain Network Design</div>
+      </div>
+      <div class="skill-group">
+        <h3>Teaching Areas</h3>
+        <div class="skill-item">Operations Research</div>
+        <div class="skill-item">Inventory Management</div>
+        <div class="skill-item">Supply Chain Analytics</div>
+        <div class="skill-item">Business Analytics</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-label">05 — Academic Positions</div>
+    <div class="timeline fade-in">
+      <div class="tl-item">
+        <div class="tl-date">Dec 2025 — Present</div>
+        <div class="tl-role">Postdoctoral Researcher</div>
+        <div class="tl-org">Yonsei University, Seoul, South Korea (QS #50)</div>
+        <div class="tl-body">Conducting high-impact research in sustainable and smart supply chain management. Developing advanced mathematical and multi-objective optimization models for smart factories. Publishing in top-tier SCIE/Q1 journals in collaboration with international research teams.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Jul 2025 — Sep 2025</div>
+        <div class="tl-role">Postdoctoral Fellow</div>
+        <div class="tl-org">Amrita School of Business, Amrita Vishwa Vidyapeetham, Bengaluru, India</div>
+        <div class="tl-body">Conducted interdisciplinary research in operations management, sustainable SCM, and smart manufacturing. Contributed to postgraduate teaching and curriculum development in Supply Chain Analytics and Quantitative Techniques.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Feb 2021 — Nov 2024</div>
+        <div class="tl-role">Junior & Senior Research Fellow (DST-INSPIRE)</div>
+        <div class="tl-org">Graphic Era Deemed to be University, Dehradun, India</div>
+        <div class="tl-body">Assisted in undergraduate and graduate courses under Prof. Anand Chauhan. Developed instructional materials and conducted doctoral research on sustainable biofuel supply chain management.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARDS -->
+  <section>
+    <div class="section-label">06 — Grants & Fellowships</div>
+    <div class="awards-grid fade-in">
+      <div class="award-card">
+        <div class="award-year">2023–2024</div>
+        <div class="award-name">Senior Research Fellow</div>
+        <div class="award-org">DST-INSPIRE, Government of India</div>
+      </div>
+      <div class="award-card">
+        <div class="award-year">2021–2023</div>
+        <div class="award-name">Junior Research Fellow</div>
+        <div class="award-org">DST-INSPIRE, Government of India</div>
+      </div>
+      <div class="award-card">
+        <div class="award-year">2014–2019</div>
+        <div class="award-name">INSPIRE Scholar</div>
+        <div class="award-org">DST-INSPIRE, Government of India</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section>
+    <div class="section-label">07 — Education</div>
+    <div class="edu-grid fade-in">
+      <div class="edu-item">
+        <div class="edu-period">2020–2024</div>
+        <div>
+          <div class="edu-degree">Ph.D. in Mathematics</div>
+          <div class="edu-inst">Graphic Era Deemed to be University, Dehradun, India</div>
+        </div>
+        <div class="edu-detail">Thesis on Sustainable Biofuel SCM · DST-INSPIRE Funded</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-period">2017–2019</div>
+        <div>
+          <div class="edu-degree">M.Sc. Mathematics</div>
+          <div class="edu-inst">Pt. L.M.S. Govt. PG College, HNBGU, Rishikesh, India</div>
+        </div>
+        <div class="edu-detail">1st Division · CGPA 7.05</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-period">2014–2017</div>
+        <div>
+          <div class="edu-degree">B.Sc. (Physics, Chemistry, Mathematics)</div>
+          <div class="edu-inst">Pt. L.M.S. Govt. PG College, HNBGU, Rishikesh, India</div>
+        </div>
+        <div class="edu-detail">1st Division · 80.55%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label">08 — Contact</div>
+    <div class="contact-grid fade-in">
+      <div>
+        <h2 class="section-title">Let's collaborate on impactful research</h2>
+        <p class="contact-intro">I am open to research collaborations, co-authorship opportunities, and academic discussions in the areas of supply chain management, operations research, and sustainability. Feel free to reach out.</p>
+      </div>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-item-label">Email</div>
+          <div class="contact-item-val" id="email-personal"></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-label">Work</div>
+          <div class="contact-item-val" id="email-work"></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-label">Phone</div>
+          <div class="contact-item-val">+91-8979792868</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-label">Location</div>
+          <div class="contact-item-val">Seoul, South Korea</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-label">ORCID</div>
+          <div class="contact-item-val"><a href="https://orcid.org/0000-0003-3089-4992" target="_blank">0000-0003-3089-4992</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2025 Dr. Shubham Kumar Singh</span>
+    <span>Postdoctoral Researcher · Yonsei University · Seoul</span>
+  </footer>
+
+  <script>
+    // Render emails to avoid spam protection
+    const e1 = ['shubham4212447', 'gmail.com'].join('@');
+    const e2 = ['drsksingh', 'yonsei.ac.kr'].join('@');
+    document.getElementById('email-personal').innerHTML = `<a href="mailto:${e1}" style="color:var(--ink);border-bottom:1px solid var(--rule);text-decoration:none;">${e1}</a>`;
+    document.getElementById('email-work').innerHTML = `<a href="mailto:${e2}" style="color:var(--ink);border-bottom:1px solid var(--rule);text-decoration:none;">${e2}</a>`;
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const navHeight = document.querySelector('nav').offsetHeight;
+          const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Fade-in on scroll
+    try {
+      document.body.classList.add('js-loaded');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+      }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    } catch(e) {
+      document.body.classList.remove('js-loaded');
+    }
+  </script>
+</body>
+</html>
